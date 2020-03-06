@@ -11,6 +11,12 @@ class Layout extends Component {
   sideDrawerCloseHandler = () => {
     this.setState({ showSideDrawer: false });
   };
+  sideDrawerToggleHandler = () => {
+    this.setState(prevState => {
+      return { showSideDrawer: !prevState.showSideDrawer };
+    });
+  };
+
   render() {
     return (
       //   <React.Fragment> // Alternative to HOC Auxiliary component.
@@ -19,7 +25,7 @@ class Layout extends Component {
           open={this.state.showSideDrawer}
           closed={this.sideDrawerCloseHandler}
         />
-        <Toolbar />
+        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
         <main className={classes.content}>{this.props.children}</main>
       </Auxiliary>
     );
