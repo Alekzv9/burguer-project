@@ -20,3 +20,10 @@
 .logo {
   height: 80%;
 }
+
+/* Will apply from 0 to 499 (mobile style) */
+@media (max-width: 499px) {
+  .desktopOnly {
+    display: none;
+  }
+}
