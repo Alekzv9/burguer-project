@@ -6,7 +6,10 @@ import Backdrop from '../Backdrop/Backdrop';
 class Modal extends Component {
   // The wrapping element controls the updating of the wrapped element.
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
   }
   render() {
     return (
