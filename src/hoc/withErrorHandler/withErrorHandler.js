@@ -10,12 +10,12 @@ const withErrorHandler = (WrappedComponent, axios, props) => {
 
     constructor() {
       super(props);
-      axios.interceptors.request.use(req => {
+      this.reqInterceptor = axios.interceptors.request.use(req => {
         this.setState({ error: null });
         return req;
       });
 
-      axios.interceptors.response.use(
+      this.resInterceptor = axios.interceptors.response.use(
         res => res,
         error => {
           this.setState({ error });
@@ -26,6 +26,13 @@ const withErrorHandler = (WrappedComponent, axios, props) => {
     errorConfirmedHandler = () => {
       this.setState({ error: null });
     };
+
+    // Like Angular onDestroy.
+    componentWillUnmount() {
+      // Like unsubscribe in observable.
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.reqInterceptor);
+    }
 
     render() {
       return (
