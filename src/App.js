@@ -10,15 +10,15 @@ export class App extends Component {
       <div>
         <Layout>
           <Switch>
-            <Route path='/checkout' component={BurgerBuilder} />
-            <Route path='/' component={Checkout} />
+            <Route path='/checkout' component={Checkout} />
+            <Route path='/' exact component={BurgerBuilder} />
           </Switch>
         </Layout>
       </div>
     );
   }
   // react router prefix strategy
-  // option1: With exact doesn't matter
+  // option1: With exact 'order' doesn't matter
   // option2: Use switch
 }
 
