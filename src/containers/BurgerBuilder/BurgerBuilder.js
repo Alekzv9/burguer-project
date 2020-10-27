@@ -12,7 +12,7 @@ const INGREDIENT_PRICES = {
   salad: 5,
   cheese: 0.4,
   meat: 1.3,
-  bacon: 0.7
+  bacon: 0.7,
 };
 
 export class BurgerBuilder extends Component {
@@ -22,7 +22,7 @@ export class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     loading: false,
-    error: false
+    error: false,
   };
 
   async componentDidMount() {
@@ -36,7 +36,7 @@ export class BurgerBuilder extends Component {
 
   updatePurchaseState(ingredients) {
     const sum = Object.keys(ingredients)
-      .map(key => ingredients[key])
+      .map((key) => ingredients[key])
       .reduce((sum, el) => sum + el, 0);
 
     this.setState({ purchasable: sum > 0 });
@@ -46,10 +46,10 @@ export class BurgerBuilder extends Component {
     this.setState({ purchasing: true });
   };
 
-  addIngredientHandler = type => {
+  addIngredientHandler = (type) => {
     const updatedCount = this.state.ingredients[type] + 1;
     const updatedIngredients = {
-      ...this.state.ingredients
+      ...this.state.ingredients,
     };
     updatedIngredients[type] = updatedCount;
     const priceAddition = INGREDIENT_PRICES[type];
@@ -58,11 +58,11 @@ export class BurgerBuilder extends Component {
     this.updatePurchaseState(updatedIngredients);
   };
 
-  removeIngredientHandler = type => {
+  removeIngredientHandler = (type) => {
     const updatedCount = this.state.ingredients[type] - 1;
     if (updatedCount >= 0) {
       const updatedIngredients = {
-        ...this.state.ingredients
+        ...this.state.ingredients,
       };
       updatedIngredients[type] = updatedCount;
       const priceDedution = INGREDIENT_PRICES[type];
@@ -77,33 +77,34 @@ export class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = async () => {
-    try {
-      this.setState({ loading: true });
-      const order = {
-        ingredients: this.state.ingredients,
-        price: this.state.totalPrice,
-        customer: {
-          name: 'Alekz V',
-          address: {
-            street: 'Test street 1',
-            zipCode: '61241',
-            country: 'MX'
-          },
-          email: 'test@email.com'
-        },
-        deliveryMethod: 'fastest'
-      };
-      await axios.post('/orders.json', order);
-      this.setState({ loading: false, purchasing: false });
-    } catch (e) {
-      console.log('order-error', e);
-      this.setState({ loading: false, purchasing: false });
-    }
+    // try {
+    //   this.setState({ loading: true });
+    //   const order = {
+    //     ingredients: this.state.ingredients,
+    //     price: this.state.totalPrice,
+    //     customer: {
+    //       name: 'Alekz V',
+    //       address: {
+    //         street: 'Test street 1',
+    //         zipCode: '61241',
+    //         country: 'MX'
+    //       },
+    //       email: 'test@email.com'
+    //     },
+    //     deliveryMethod: 'fastest'
+    //   };
+    //   await axios.post('/orders.json', order);
+    //   this.setState({ loading: false, purchasing: false });
+    // } catch (e) {
+    //   console.log('order-error', e);
+    //   this.setState({ loading: false, purchasing: false });
+    // }
+    this.props.history.push('/checkout');
   };
 
   render() {
     const disabledInfo = {
-      ...this.state.ingredients
+      ...this.state.ingredients,
     };
     for (const key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
