@@ -18,6 +18,9 @@ export class App extends Component {
       </div>
     );
   }
+  // react router prefix strategy
+  // option1: With exact 'order' doesn't matter
+  // option2: Use switch
 }
 
 export default App;
